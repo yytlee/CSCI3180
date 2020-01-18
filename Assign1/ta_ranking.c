@@ -11,11 +11,10 @@ typedef struct instructor{
 typedef struct candidate{
     int ID;
     char *skill[8];
-    int pref[4];
+    int pref[3];
 }CANDIDATE;
 
-char* substr(char *src, int start, int end)
-{
+char* substr(char *src, int start, int end){
 	int len = end - start + 1;
 	char *str = (char*)malloc(sizeof(char) * len);
 	for(int i = start; (i < end) && (*src != '\0'); i++)
@@ -27,6 +26,44 @@ char* substr(char *src, int start, int end)
 	return str - len + 1;
 }
 
+int req_satisf(INSTRUCTOR in, CANDIDATE ca){
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 8; j++){
+            if(strcmp(in.req_skill[i], ca.skill[j]) == 0) break;
+            if(j == 7) return 0;
+        }
+    }
+    return 1;
+}
+
+double score(INSTRUCTOR in, CANDIDATE ca){
+    if(req_satisf(in, ca) == 0) return 0;
+    double s = 1;
+    for(int i = 0; i < 5; i++){
+        for(int j = 0; j < 8; j++){
+            if(strcmp(in.opt_skill[i], ca.skill[j]) == 0){
+                s++;
+                break;
+            }
+        }
+    }
+
+    if(ca.pref[0] == in.courseID) s+=1.5;
+    else if(ca.pref[1] == in.courseID) s++;
+    else if(ca.pref[2] == in.courseID) s+=0.5;
+    return s;
+}
+
+void print_score(INSTRUCTOR *instr, CANDIDATE *candi, int in, int ca){
+    for(int i = 0; i < in; i++){
+        printf("%d: ", instr[i].courseID);
+        for(int j = 0; j < ca; j++){
+            printf("%.1f ", score(instr[i], candi[j]));
+        }
+        printf("\n");
+    }
+}
+
 int main(void){
     int num_instr = 0;
     int num_candi = 0;
@@ -35,7 +72,7 @@ int main(void){
     char tmp[147];
 
     FILE *instr_fp = fopen("./testcase/instructors.txt", "r");
-    if(instr_fp == NULL)printf("error");
+    if(instr_fp == NULL) printf("error");
 
     while(fgets(tmp, 125, instr_fp) != NULL){
         //printf("%s\n", tmp);
@@ -59,7 +96,7 @@ int main(void){
     fclose(instr_fp);
 
     FILE *candi_fp = fopen("./testcase/candidates.txt", "r");
-    if(candi_fp == NULL)printf("error");
+    if(candi_fp == NULL) printf("error");
 
     while(fgets(tmp, 146, candi_fp) != NULL){
         //printf("%s\n", tmp);
@@ -78,5 +115,6 @@ int main(void){
     }
     fclose(candi_fp);
 
+    print_score(instr, candi, num_instr, num_candi);
     return 0;
 }
