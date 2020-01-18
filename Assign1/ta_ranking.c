@@ -67,8 +67,8 @@ void print_score(INSTRUCTOR *instr, CANDIDATE *candi, int in, int ca){
 int main(void){
     int num_instr = 0;
     int num_candi = 0;
-    INSTRUCTOR *instr = (INSTRUCTOR*)malloc(sizeof(INSTRUCTOR*));
-    CANDIDATE *candi = (CANDIDATE*)malloc(sizeof(CANDIDATE*));
+    INSTRUCTOR *instr = (INSTRUCTOR*)malloc(sizeof(INSTRUCTOR));
+    CANDIDATE *candi = (CANDIDATE*)malloc(sizeof(CANDIDATE));
     char tmp[147];
 
     FILE *instr_fp = fopen("./testcase/instructors.txt", "r");
@@ -115,6 +115,46 @@ int main(void){
     }
     fclose(candi_fp);
 
-    print_score(instr, candi, num_instr, num_candi);
+    FILE *output_fp = fopen("output.txt", "w");
+    if(output_fp == NULL) printf("error");
+
+    for(int i = 0; i < num_instr; i++){
+        int suit_candi = 0;
+        int rank[3][2] = {{0}};
+        for(int j = 0; j < num_candi; j++){
+            int s = score(instr[i], candi[j]);
+            if(s > rank[0][1]){
+                suit_candi++;
+                rank[2][0] = rank[1][0];
+                rank[2][1] = rank[1][1];
+                rank[1][0] = rank[0][0];
+                rank[1][1] = rank[0][1];
+                rank[0][0] = candi[j].ID;
+                rank[0][1] = s;
+            }
+            else if(s > rank[1][1]){
+                suit_candi++;
+                rank[2][0] = rank[2][0];
+                rank[2][1] = rank[2][1];
+                rank[1][0] = candi[j].ID;
+                rank[1][1] = s;
+            }
+            else if(s > rank[2][1]){
+                suit_candi++;
+                rank[2][0] = candi[j].ID;
+                rank[2][1] = s;
+            }
+        }
+        fprintf(output_fp, "%d ", instr[i].courseID);
+        for(int k = 0; k < 3; k++){
+            if(rank[k][0] == 0 && rank[k][1] == 0){
+                fputs("0000000000 ", output_fp);
+            }
+            else fprintf(output_fp, "%d ", rank[k][0]);
+        }
+        fputs("\n", output_fp);
+    }
+
+    //print_score(instr, candi, num_instr, num_candi);
     return 0;
 }
