@@ -90,7 +90,10 @@ int main(void){
     char tmp[147];
 
     FILE *instr_fp = fopen("./testcase/instructors.txt", "r");
-    if(instr_fp == NULL) printf("error");
+    if(instr_fp == NULL){
+        printf("Open instructor.txt error\n");
+        exit(-1);
+    }
 
     while(fgets(tmp, 125, instr_fp) != NULL){
         //printf("%s\n", tmp);
@@ -114,7 +117,10 @@ int main(void){
     fclose(instr_fp);
 
     FILE *candi_fp = fopen("./testcase/candidates.txt", "r");
-    if(candi_fp == NULL) printf("error");
+    if(candi_fp == NULL){
+        printf("Open candidates.txt error\n");
+        exit(-1);
+    }
 
     while(fgets(tmp, 146, candi_fp) != NULL){
         //printf("%s\n", tmp);
@@ -134,7 +140,10 @@ int main(void){
     fclose(candi_fp);
 
     FILE *output_fp = fopen("output.txt", "w");
-    if(output_fp == NULL) printf("error");
+    if(output_fp == NULL){
+        printf("Open output.txt error\n");
+        exit(-1);
+    }
 
     for(int i = 0; i < num_instr; i++){
         int suit_candi = 0;
@@ -172,6 +181,7 @@ int main(void){
         }
         fputs("\n", output_fp);
     }
+    fclose(output_fp);
 
     //print_score(instr, candi, num_instr, num_candi);
     return 0;
