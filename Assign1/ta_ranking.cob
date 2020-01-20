@@ -1,36 +1,73 @@
 000000*
-000000* CSCI3180 Principles of Programming Languages
+000000*CSCI3180 Principles of Programming Languages
 000000*
-000000* --- Declaration ---
+000000*--- Declaration ---
 000000*
-000000* I declare that the assignment here submitted is original except for source
-000000* material explicitly acknowledged. I also acknowledge that I am aware of
-000000* University policy and regulations on honesty in academic work, and of the
-000000* disciplinary guidelines and procedures applicable to breaches of such policy
-000000* and regulations, as contained in the website
-000000* http://www.cuhk.edu.hk/policy/academichonesty/
+000000*I declare that the assignment here submitted is original except for source
+000000*material explicitly acknowledged. I also acknowledge that I am aware of
+000000*University policy and regulations on honesty in academic work, and of the
+000000*disciplinary guidelines and procedures applicable to breaches of such policy
+000000*and regulations, as contained in the website
+000000*http://www.cuhk.edu.hk/policy/academichonesty/
 000000*
-000000* Assignment 1
-000000* Name : Lee Tsz Yan
-000000* Student ID : 1155110177
-000000* Email Addr : 1155110177@link.cuhk.edu.hk
+000000*Assignment 1
+000000*Name : Lee Tsz Yan
+000000*Student ID : 1155110177
+000000*Email Addr : 1155110177@link.cuhk.edu.hk
 000000*                                                               
-000000 *****************************************************************
-000000  IDENTIFICATION DIVISION.
-000000  PROGRAM-ID.  TA_RANKING.
-000000  AUTHOR. LEE TSZ YAN. 
-000000  INSTALLATION. COBOL DEVELOPMENT CENTER. 
-000000  DATE-WRITTEN. 19/01/2020. 
-000000  DATE-COMPILED. 01/01/08. 
-000000  SECURITY. NON-CONFIDENTIAL.
-000000 *****************************************************************
-       ENVIRONMENT DIVISION.
-       INPUT-OUTPUT SECTION.
-       FILE-CONTROL.
-           SELECT INSTRUCTORS ASSIGN TO 'testcase/instructors.txt'
-           SELECT CANDIDATES ASSIGN TO 'testcase/candidates.txt'
-           SELECT OUTPUT_FILE ASSIGN TO 'testcase/output.txt'
-           ORGANIZATION IS LINE SEQUENTIAL.
-       DATA DIVISION.
-       FILE SECTION.
-       FD INSTRUCTORS.
+000000******************************************************************
+000000 IDENTIFICATION DIVISION.
+000000 PROGRAM-ID.  TA_RANKING.
+000000 AUTHOR. LEE TSZ YAN. 
+000000 INSTALLATION. COBOL DEVELOPMENT CENTER. 
+000000 DATE-WRITTEN. 19/01/2020. 
+000000 DATE-COMPILED. 01/01/08. 
+000000******************************************************************
+000000 ENVIRONMENT DIVISION.
+000000 INPUT-OUTPUT SECTION.
+000000 FILE-CONTROL.
+000000     SELECT INSTRUCTORS ASSIGN TO 'testcase/instructors.txt'
+000000     ORGANIZATION IS LINE SEQUENTIAL.
+000000     SELECT CANDIDATES ASSIGN TO 'testcase/candidates.txt'
+000000     ORGANIZATION IS LINE SEQUENTIAL.
+000000 DATA DIVISION.
+000000 FILE SECTION.
+000000 FD INSTRUCTORS.
+000000   01 INSTRUCTORS-FILE.
+000000     05 COURSE-ID PIC 9(4).
+000000     05 REQ-SKILL OCCURS 3 TIMES PIC A(15).
+000000     05 OPT-SKILL OCCURS 5 TIMES PIC A(15).
+000000 FD CANDIDATES.
+000000   01 CONDIDATES-FILE.
+000000     05 SID PIC 9(10).
+000000     05 SKILL OCCURS 8 TIMES PIC A(15).
+000000     05 PREF OCCURS 3 TIMES PIC 9(3).
+000000 WORKING-STORAGE SECTION.
+000000   01 WS-INSTRUCTORS.
+000000     05 WS-COURSE-ID PIC 9(4).
+000000     05 WS-REQ-SKILL OCCURS 3 TIMES PIC A(15).
+000000     05 WS-OPT-SKILL OCCURS 5 TIMES PIC A(15).
+000000   01 WS-CANDIDATES.
+000000     05 WS-SID PIC 9(10).
+000000     05 WS-SKILL OCCURS 8 TIMES PIC A(15).
+000000     05 WS-PREF OCCURS 3 TIMES PIC 9(3).
+000000   01 WS-EOF PIC A(1).
+000000 PROCEDURE DIVISION.
+000000     OPEN INPUT INSTRUCTORS.
+000000        PERFORM UNTIL WS-EOF='Y'
+000000           READ INSTRUCTORS  INTO WS-INSTRUCTORS 
+000000              AT END MOVE 'Y' TO WS-EOF
+000000              NOT AT END DISPLAY WS-INSTRUCTORS 
+000000           END-READ
+000000        END-PERFORM.
+000000     CLOSE INSTRUCTORS.
+000000     OPEN INPUT CANDIDATES.
+000000        PERFORM UNTIL WS-EOF='Y'
+000000           READ CANDIDATES  INTO WS-CANDIDATES 
+000000              AT END MOVE 'Y' TO WS-EOF
+000000              NOT AT END DISPLAY WS-CANDIDATES 
+000000           END-READ
+000000        END-PERFORM.
+000000     CLOSE CANDIDATES.
+
+000000     STOP RUN.
