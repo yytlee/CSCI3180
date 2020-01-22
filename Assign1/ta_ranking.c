@@ -150,7 +150,7 @@ int main(void){
         int rank[3][2] = {{0}};
         for(int j = 0; j < num_candi; j++){
             int s = score(instr[i], candi[j]);
-            if(s > rank[0][1]){
+            if(s > rank[0][1] || (s == rank[0][1] && candi[j].ID < rank[0][0])){
                 suit_candi++;
                 rank[2][0] = rank[1][0];
                 rank[2][1] = rank[1][1];
@@ -159,14 +159,14 @@ int main(void){
                 rank[0][0] = candi[j].ID;
                 rank[0][1] = s;
             }
-            else if(s > rank[1][1]){
+            else if(s > rank[1][1] || (s == rank[1][1] && candi[j].ID < rank[1][0])){
                 suit_candi++;
                 rank[2][0] = rank[2][0];
                 rank[2][1] = rank[2][1];
                 rank[1][0] = candi[j].ID;
                 rank[1][1] = s;
             }
-            else if(s > rank[2][1]){
+            else if(s > rank[2][1] || (s == rank[2][1] && candi[j].ID < rank[2][0])){
                 suit_candi++;
                 rank[2][0] = candi[j].ID;
                 rank[2][1] = s;
