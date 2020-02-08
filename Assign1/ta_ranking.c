@@ -189,6 +189,6 @@ int main(void){
     }
     fclose(output_fp);
 
-    print_score(instr, candi, num_instr, num_candi, 1);
+    //print_score(instr, candi, num_instr, num_candi, 1);
     return 0;
 }
