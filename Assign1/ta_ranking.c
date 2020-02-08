@@ -75,12 +75,17 @@ double score(INSTRUCTOR in, CANDIDATE ca){
     return s;
 }
 
-void print_score(INSTRUCTOR *instr, CANDIDATE *candi, int in, int ca){
+void print_score(INSTRUCTOR *instr, CANDIDATE *candi, int in, int ca, int mode){
     int i, j;
     for(i = 0; i < in; i++){
         printf("%d: ", instr[i].courseID);
         for(j = 0; j < ca; j++){
-            printf("%.1f ", score(instr[i], candi[j]));
+            if(!mode)printf("%.1f ", score(instr[i], candi[j]));
+            else {
+                if(score(instr[i], candi[j]) > 0){
+                    printf("%d %.1f ", (candi[j].ID)%1155000000, score(instr[i], candi[j]));
+                }
+            }
         }
         printf("\n");
     }
@@ -96,11 +101,11 @@ int main(void){
 
     FILE *instr_fp = fopen("./testcase/instructors.txt", "r");
     if(instr_fp == NULL){
-        printf("Open instructor.txt error\n");
+        printf("non-existing file!\n");
         exit(-1);
     }
 
-    while(fgets(tmp, 125, instr_fp) != NULL){
+    while(fgets(tmp, 126, instr_fp) != NULL){
         //printf("%s\n", tmp);
         num_instr++;
         instr = (INSTRUCTOR*)realloc(instr, sizeof(INSTRUCTOR) * num_instr);
@@ -117,13 +122,13 @@ int main(void){
             //printf("-> %s\n", instr[num_instr - 1].opt_skill[i]);
         }
 
-        fgets(tmp, 125, instr_fp);
+        fgets(tmp, 126, instr_fp);
     }
     fclose(instr_fp);
 
     FILE *candi_fp = fopen("./testcase/candidates.txt", "r");
     if(candi_fp == NULL){
-        printf("Open candidates.txt error\n");
+        printf("non-existing file!\n");
         exit(-1);
     }
 
@@ -144,19 +149,17 @@ int main(void){
     }
     fclose(candi_fp);
 
-    FILE *output_fp = fopen("output.txt", "w");
+    FILE *output_fp = fopen("outputc.txt", "w");                                      // remember to change file name
     if(output_fp == NULL){
-        printf("Open output.txt error\n");
+        printf("non-existing file!\n");
         exit(-1);
     }
 
     for(i = 0; i < num_instr; i++){
-        int suit_candi = 0;
-        int rank[3][2] = {{0}};
+        double rank[3][2] = {{0}};
         for(j = 0; j < num_candi; j++){
-            int s = score(instr[i], candi[j]);
+            double s = score(instr[i], candi[j]);
             if(s > rank[0][1] || (s == rank[0][1] && candi[j].ID < rank[0][0])){
-                suit_candi++;
                 rank[2][0] = rank[1][0];
                 rank[2][1] = rank[1][1];
                 rank[1][0] = rank[0][0];
@@ -165,14 +168,12 @@ int main(void){
                 rank[0][1] = s;
             }
             else if(s > rank[1][1] || (s == rank[1][1] && candi[j].ID < rank[1][0])){
-                suit_candi++;
-                rank[2][0] = rank[2][0];
-                rank[2][1] = rank[2][1];
+                rank[2][0] = rank[1][0];
+                rank[2][1] = rank[1][1];
                 rank[1][0] = candi[j].ID;
                 rank[1][1] = s;
             }
             else if(s > rank[2][1] || (s == rank[2][1] && candi[j].ID < rank[2][0])){
-                suit_candi++;
                 rank[2][0] = candi[j].ID;
                 rank[2][1] = s;
             }
@@ -182,12 +183,12 @@ int main(void){
             if(rank[k][0] == 0 && rank[k][1] == 0){
                 fputs("0000000000 ", output_fp);
             }
-            else fprintf(output_fp, "%d ", rank[k][0]);
+            else fprintf(output_fp, "%.0f ", rank[k][0]);
         }
         fputs("\n", output_fp);
     }
     fclose(output_fp);
 
-    //print_score(instr, candi, num_instr, num_candi);
+    print_score(instr, candi, num_instr, num_candi, 1);
     return 0;
 }
