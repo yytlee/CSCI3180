@@ -13,7 +13,7 @@
  * Assignment 1
  * Name : Lee Tsz Yan
  * Student ID : 1155110177
- * Email Addr : 1155110177@link.cuhk.edu.hk
+ * Email Addr : tylee8@cse.cuhk.edu.hk
  */
 
 #include <stdio.h>
