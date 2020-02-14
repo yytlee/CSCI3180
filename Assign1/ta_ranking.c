@@ -99,7 +99,7 @@ int main(void){
     char tmp[147];
     int i, j, k;
 
-    FILE *instr_fp = fopen("./testcase/instructors.txt", "r");
+    FILE *instr_fp = fopen("./instructors.txt", "r");
     if(instr_fp == NULL){
         printf("non-existing file!\n");
         exit(-1);
@@ -126,7 +126,7 @@ int main(void){
     }
     fclose(instr_fp);
 
-    FILE *candi_fp = fopen("./testcase/candidates.txt", "r");
+    FILE *candi_fp = fopen("./candidates.txt", "r");
     if(candi_fp == NULL){
         printf("non-existing file!\n");
         exit(-1);
@@ -149,7 +149,7 @@ int main(void){
     }
     fclose(candi_fp);
 
-    FILE *output_fp = fopen("outputc.txt", "w");                                      // remember to change file name
+    FILE *output_fp = fopen("output.txt", "w");                                      // remember to change file name
     if(output_fp == NULL){
         printf("non-existing file!\n");
         exit(-1);
