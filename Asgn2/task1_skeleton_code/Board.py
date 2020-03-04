@@ -56,6 +56,8 @@ class Board():
         valid_flag = True
         
         ### TODO
+        if self.state[pos] != '.':
+            valid_flag = False
 
         return valid_flag
 
@@ -70,7 +72,21 @@ class Board():
             valid_flag = False
 
         ### TODO
+        if self.state[s] != player.get_symbol():
+            valid_flag = False
+        if self.state[t] != '.':
+            valid_flag = False
 
+        accept = False
+        for i, j in self.edges:
+            if (i == s) and (j == t):
+                accept = True
+                break
+            if (j == s) and (i == t):
+                accept = True
+                break
+        if accept == False:
+            valid_flag = False
         return valid_flag
 
     def check_remove(self, pos, player):
@@ -84,6 +100,8 @@ class Board():
             valid_flag = False
         
         ### TODO
+        if self.state[pos] == player.get_symbol() or self.state[pos] == '.':
+            valid_flag = False
         
         return valid_flag
 
@@ -91,11 +109,14 @@ class Board():
         """This function does the PUT-movement on the board without checking. 
         """
         ### TODO
+        self.state[pos] = player.get_symbol()
 
     def move_piece(self, s, t, player):
         """This function does the MOVE-movement on the board without checking.
         """
         ### TODO
+        self.state[s] = '.'
+        self.state[t] = player.get_symbol()
 
     def remove_piece(self, pos, player):
         """This function does the REMOVE-movement on the board without checking.
@@ -109,6 +130,10 @@ class Board():
         if_form = False
         
         ### TODO
+        for i, j, k in self.mills:
+            if pos == i or pos == j or pos == k:
+                if player.get_symbol() == self.state[i] and player.get_symbol() == self.state[j] and player.get_symbol() == self.state[k]:
+                    if_form = True
 
         return if_form
 
@@ -124,6 +149,9 @@ class Board():
         num_pieces = 0
 
         ### TODO (check every position to calculate the number of pieces for the player)
+        for i in self.state:
+            if i == opponent.get_symbol():
+                num_pieces += 1
 
         if num_pieces <= 2: 
             if_win = True
@@ -137,6 +165,14 @@ class Board():
                     piece_can_move = False
                     for j, k in self.edges:
                         ### TODO (check every edge to check whether there is a legal move)
+                        if self.state[i] == self.state[j]:
+                            if self.state[k] == '.':
+                                piece_can_move = True
+                                break
+                        elif self.state[i] == self.state[k]:
+                            if self.state[j] == '.':
+                                piece_can_move = True
+                                break
 
                     if piece_can_move:
                         can_move = True

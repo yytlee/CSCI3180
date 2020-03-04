@@ -58,6 +58,16 @@ class SixMensMorris():
             print('Player 1 is a computer.')
 
         ### TODO (Choose the type for player 2)
+        print('Please choose Player 2:')
+        print('1. Human Player')
+        print('2. Computer Player')
+        x = input('Your choice is: ')
+        if x == '1':
+            self.players.append(Human(2, self.board))
+            print('Player 2 is a human.')
+        elif x == '2':
+            self.players.append(Computer(2, self.board))
+            print('Player 2 is a computer.')
 
         # Start the game
         self.board.print_board()
@@ -73,17 +83,18 @@ class SixMensMorris():
                 x = player.next_move()
             self.board.print_board()
 
-            if ### TODO:
+            if  self.num_play > 12 and self.check_win(player): ### TODO:
                 end = True
             else:
                 if self.board.form_mill(x, player):
                     print('You form a mill!')
                     
                     ### TODO
+                    player.next_remove(player)
                     
                     self.board.print_board()
                 
-                if ### TODO:
+                if self.num_play > 12 and self.check_win(player): ### TODO:
                     end = True
 
 if __name__ == '__main__':
