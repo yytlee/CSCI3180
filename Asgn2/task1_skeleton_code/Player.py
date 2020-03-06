@@ -1,6 +1,6 @@
 """
-Name: XXX
-Student ID: XXX
+Name: Lee Tsz Yan
+Student ID: 1155110177
 """
 
 class Player():

@@ -1,6 +1,6 @@
 """
-Name: XXX
-Student ID: XXX
+Name: Lee Tsz Yan
+Student ID: 1155110177
 """
 
 color_mode = True # if you want to close the color mode, just set it as False.
