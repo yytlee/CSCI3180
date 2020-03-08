@@ -21,16 +21,16 @@ public class Task4Merchant {
     String choice = sc.nextLine();
 
     if (choice.equalsIgnoreCase("1")) {
-      if (soldier.getNumCoin() >= elixirPrice){
-        soldier.useCoin(elixirPrice);
+      if (soldier.getNumCoin() >= this.elixirPrice){
+        soldier.useCoin(this.elixirPrice);
         soldier.addElixir();
         System.out.printf("You have %d coin(s) left.%n", soldier.getNumCoin());
       } else {
         this.talk("Poor guy, you don't have enough coins.%n");
       }
     } else if (choice.equalsIgnoreCase("2")) {
-      if(soldier.getNumCoin() >= shieldPrice) {
-        soldier.useCoin(shieldPrice);
+      if(soldier.getNumCoin() >= this.shieldPrice) {
+        soldier.useCoin(this.shieldPrice);
         soldier.addShield();
         System.out.printf("You have %d coin(s) left.%n", soldier.getNumCoin());
       } else {
