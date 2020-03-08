@@ -1,0 +1,88 @@
+from Pos import Pos
+import random
+
+class Soldier():
+    def __init__(self):
+        self.health = 100
+        self.numElixirs = 2
+        self.pos = Pos()
+        self.keys = []
+
+    
+    def getHealth(self):
+        return self.health
+
+    def loseHealth(self):
+        self.health -= 10
+        return self.health <= 0
+
+    def recover(self, healingPower):
+        ## Soldier's health cannot exceed capacity.
+        totalHealth = healingPower + self.health
+        self.health = 100 if totalHealth >= 100 else totalHealth
+
+    def getPos(self):
+        return self.pos
+
+    def setPos(self, row, column):
+        self.pos.setPos(row, column)
+
+    def move(self, row, column):
+        self.setPos(row, column)
+
+    def getKeys(self):
+        return self.keys
+
+    def addKey(self, key):
+        self.keys.append(key)
+
+    def getNumElixirs(self):
+        return self.numElixirs
+
+    def addElixir(self):
+        self.numElixirs += 1
+
+    def useElixir(self):
+        self.recover(random.randint(15, 20))
+        self.numElixirs -= 1
+
+    def displayInformation(self):
+        print("Health: %d." %(self.health))
+        print("Position (row, column): (%d, %d)." %(self.pos.getRow(self), self.pos.getColumn(self)))
+        print("Keys: " + str(self.keys) + ".")
+        print("Elixirs: %d." %(self.numElixirs))
+
+    def displaySymbol(self):
+        print('S', end = '')
+
+class Task4Soldier(Soldier):
+    def __init__(self):
+        super(Task4Soldier, self).__init__()
+        self.health = 100
+        self.coin = 0
+        self.shield = 0
+
+    def getNumCoin(self):
+        return self.coin
+
+    def addCoin(self):
+        self.coin += 1
+
+    def useCoin(self, n):
+        self.coin -= n
+
+    def addShield(self):
+        self.shield += 1
+
+    def loseHealth(self):
+        h = 0 if self.shield > 2 else (10 - 5 * (self.shield))
+        self.health -= h
+        return self.health <= 0
+
+    def displayInformation(self):
+        print("Health: %d." %(self.health))
+        print("Position (row, column): (%d, %d)." %(self.getPos().getRow(), self.getPos().getColumn()))
+        print("Keys: " + str(self.getKeys()) + ".")
+        print("Elixirs: %d." %(self.getNumElixirs()))
+        print("Defence: %d." %(self.shield))
+        print("Coins: %d." %(self.coin))
