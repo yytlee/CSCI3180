@@ -6,7 +6,7 @@ class Soldier():
         self.health = 100
         self.numElixirs = 2
         self.pos = Pos()
-        self.keys = []
+        self.keys = set()
 
     
     def getHealth(self):
@@ -34,7 +34,7 @@ class Soldier():
         return self.keys
 
     def addKey(self, key):
-        self.keys.append(key)
+        self.keys.add(key)
 
     def getNumElixirs(self):
         return self.numElixirs
@@ -49,7 +49,8 @@ class Soldier():
     def displayInformation(self):
         print("Health: %d." %(self.health))
         print("Position (row, column): (%d, %d)." %(self.pos.getRow(), self.pos.getColumn()))
-        print("Keys: " + str(self.keys) + ".")
+        print('Keys: [', end = '')
+        print(*self.keys, sep = ', ', end = '].\n')
         print("Elixirs: %d." %(self.numElixirs))
 
     def displaySymbol(self):
