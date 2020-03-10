@@ -47,6 +47,10 @@ class Human(Player):
                 g('Player 1') if self.id == 1 else b('Player 2') )).lower().strip().split(' ')
 
             ### TODO (check the legal input)
+            if len(x[0]) != 1 or len(x[1]) != 1 or len(x) != 2:
+                print('Invalid Move-Movement.')
+                continue
+            
             xs = sym_to_pos(x[0])
             xt = sym_to_pos(x[1])
             if not self.board.check_move(xs, xt, self):
