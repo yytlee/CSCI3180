@@ -1,0 +1,36 @@
+Report: 10/10
+
+COBOL
+Compile or check code: 5/5
+Test case 0 (Long Case): 24/27
+Test case 1 (only 1 course and 2TAs): 3/3
+Test case 2 (required skills of some courses have 15 spaces): 3/3
+Test case 3 (optional skills of some courses have 15 spaces): 3/3
+Test case 4 (own skills of TAs have 15 spaces): 3/3
+Test case 5 (skill name is full of characters): 0/3
+Test case 6 (empty instructors file): 1/1
+Test case 7 (empty candidates file): 1/1
+Test case 8 (non-existing file): 1/1
+Test case 9 (matched TA IDs with same score are in chronological order): 3/3
+Check whether using the while or other grammars : 4/4
+Programming style: 2/2
+Sub-total: 53.00/59
+
+C
+Compile or check code: 5/5
+Test case 0 (Long Case): 13.5/13.5
+Test case 1 (only 1 course and 2TAs): 1.5/1.5
+Test case 2 (required skills of some courses have 15 spaces): 1.5/1.5
+Test case 3 (optional skills of some courses have 15 spaces): 1.5/1.5
+Test case 4 (own skills of TAs have 15 spaces): 1.5/1.5
+Test case 5 (skill name is full of characters): 1.5/1.5
+Test case 6 (empty instructors file): 0.5/0.5
+Test case 7 (empty candidates file): 0.5/0.5
+Test case 8 (non-existing file): 0.5/0.5
+Test case 9 (matched TA IDs with same score are in chronological order): 1.5/1.5
+Programming style: 2/2
+Sub-total: 31.00/31
+
+Total: 94.000/100
+
+Comments: For your cobol program, you output 48 correct anwsers out of 54 in our long testcase. Do not pass the testcase with skill name being full of characters. Do not pass the testcase with matching TA ID with same score in chronological order. Your c program is totally right.
