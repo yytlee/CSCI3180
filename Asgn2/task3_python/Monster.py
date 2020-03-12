@@ -1,7 +1,7 @@
 from Pos import Pos
 
 class Monster():
-    def __init__(self, monsterID, healthCapacity):
+    def __init__(self, monsterID = 0, healthCapacity = 30):
         self.monsterID = monsterID
         self.healthCapacity = healthCapacity
         self.health = healthCapacity

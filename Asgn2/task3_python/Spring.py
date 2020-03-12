@@ -1,9 +1,9 @@
 from Pos import Pos
 
 class Spring():
-    def __init__(self):
-        self.numChance = 1
-        self.healingPower = 100
+    def __init__(self, chance = 1, healing = 100):
+        self.numChance = chance
+        self.healingPower = healing
         self.pos = Pos()
 
 

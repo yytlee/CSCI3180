@@ -10,7 +10,7 @@ class SaveTheTribine():
         self.map = Map()
         self.soldier = Soldier()
         self.spring = Spring()
-        self.monsters = [Monster(0, 0) for i in range(7)]
+        self.monsters = [Monster() for i in range(7)]
         self.gameEnabled = True
 
     def initialize(self):
