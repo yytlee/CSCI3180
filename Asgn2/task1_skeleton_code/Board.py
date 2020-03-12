@@ -56,7 +56,7 @@ class Board():
         valid_flag = True
         
         ### TODO
-        if self.state[pos] != '.':
+        if pos > 15 or pos < 0 or self.state[pos] != '.':
             valid_flag = False
 
         return valid_flag
@@ -72,6 +72,8 @@ class Board():
             valid_flag = False
 
         ### TODO
+        if valid_flag == False:
+            return
         if self.state[s] != player.get_symbol():
             valid_flag = False
         if self.state[t] != '.':
@@ -100,7 +102,7 @@ class Board():
             valid_flag = False
         
         ### TODO
-        if self.state[pos] == player.get_symbol() or self.state[pos] == '.':
+        if valid_flag == True and (self.state[pos] == player.get_symbol() or self.state[pos] == '.'):
             valid_flag = False
         
         return valid_flag

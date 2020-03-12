@@ -47,7 +47,7 @@ class Human(Player):
                 g('Player 1') if self.id == 1 else b('Player 2') )).lower().strip().split(' ')
 
             ### TODO (check the legal input)
-            if len(x[0]) != 1 or len(x[1]) != 1 or len(x) != 2:
+            if len(x) != 2 or len(x[0]) != 1 or len(x[1]) != 1:
                 print('Invalid Move-Movement.')
                 continue
             
@@ -74,6 +74,9 @@ class Human(Player):
                 g('Player 1') if self.id == 1 else b('Player 2') )).lower().strip()
             
             ### TODO
+            if len(x) != 1:
+                print('Invalid Remove-Movement.')
+                continue
             x = sym_to_pos(x)
             if not self.board.check_remove(x, self):
                 print('Invalid Remove-Movement.')
