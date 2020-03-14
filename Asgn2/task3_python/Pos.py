@@ -17,16 +17,16 @@
 #  */
 class Pos():
     def __init__(self):
-        self.row = 0
-        self.colume = 0
+        self._row = 0
+        self._colume = 0
 
-    def setPos(self, row, column):
-        self.row = row
-        self.column = column
+    def set_pos(self, row, column):
+        self._row = row
+        self._column = column
     
 
-    def getRow(self):
-        return self.row
+    def get_row(self):
+        return self._row
 
-    def getColumn(self):
-        return self.column
+    def get_column(self):
+        return self._column

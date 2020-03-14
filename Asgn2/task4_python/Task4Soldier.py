@@ -1,4 +1,4 @@
-/*
+# /*
 #  * CSCI3180 Principles of Programming Languages
 #  *
 #  * --- Declaration ---
@@ -20,87 +20,87 @@ import random
 
 class Soldier():
     def __init__(self):
-        self.health = 100
-        self.numElixirs = 2
-        self.pos = Pos()
-        self.keys = set()
+        self._health = 100
+        self._num_elixirs = 2
+        self._pos = Pos()
+        self._keys = set()
 
     
-    def getHealth(self):
-        return self.health
+    def get_health(self):
+        return self._health
 
-    def loseHealth(self):
-        self.health -= 10
-        return self.health <= 0
+    def lose_health(self):
+        self._health -= 10
+        return self._health <= 0
 
-    def recover(self, healingPower):
+    def recover(self, healing_power):
         ## Soldier's health cannot exceed capacity.
-        totalHealth = healingPower + self.health
-        self.health = 100 if totalHealth >= 100 else totalHealth
+        total_health = healing_power + self._health
+        self._health = 100 if total_health >= 100 else total_health
 
-    def getPos(self):
-        return self.pos
+    def get_pos(self):
+        return self._pos
 
-    def setPos(self, row, column):
-        self.pos.setPos(row, column)
+    def set_pos(self, row, column):
+        self._pos.set_pos(row, column)
 
     def move(self, row, column):
-        self.setPos(row, column)
+        self.set_pos(row, column)
 
-    def getKeys(self):
-        return self.keys
+    def get_keys(self):
+        return self._keys
 
-    def addKey(self, key):
-        self.keys.add(key)
+    def add_key(self, key):
+        self._keys.add(key)
 
-    def getNumElixirs(self):
-        return self.numElixirs
+    def get_num_elixirs(self):
+        return self._num_elixirs
 
-    def addElixir(self):
-        self.numElixirs += 1
+    def add_elixir(self):
+        self._num_elixirs += 1
 
-    def useElixir(self):
+    def use_elixir(self):
         self.recover(random.randint(15, 20))
-        self.numElixirs -= 1
+        self._num_elixirs -= 1
 
-    def displayInformation(self):
-        print("Health: %d." %(self.health))
-        print("Position (row, column): (%d, %d)." %(self.pos.getRow(self), self.pos.getColumn(self)))
+    def display_information(self):
+        print("Health: %d." %(self._health))
+        print("Position (row, column): (%d, %d)." %(self._pos.get_row(self), self._pos.get_column(self)))
         print('Keys: [', end = '')
-        print(*self.keys, sep = ', ', end = '].\n')
-        print("Elixirs: %d." %(self.numElixirs))
+        print(*self._keys, sep = ', ', end = '].\n')
+        print("Elixirs: %d." %(self._num_elixirs))
 
-    def displaySymbol(self):
+    def display_symbol(self):
         print('S', end = '')
 
 class Task4Soldier(Soldier):
     def __init__(self):
         super(Task4Soldier, self).__init__()
-        self.coin = 0
-        self.shield = 0
+        self._coin = 0
+        self._shield = 0
 
-    def getNumCoin(self):
-        return self.coin
+    def get_num_coin(self):
+        return self._coin
 
-    def addCoin(self):
-        self.coin += 1
+    def add_coin(self):
+        self._coin += 1
 
-    def useCoin(self, n):
-        self.coin -= n
+    def use_coin(self, n):
+        self._coin -= n
 
-    def addShield(self):
-        self.shield += 1
+    def add_shield(self):
+        self._shield += 1
 
-    def loseHealth(self):
-        h = 0 if self.shield > 2 else (10 - 5 * (self.shield))
-        self.health -= h
-        return self.health <= 0
+    def lose_health(self):
+        h = 0 if self._shield > 2 else (10 - 5 * (self._shield))
+        self._health -= h
+        return self._health <= 0
 
-    def displayInformation(self):
-        print("Health: %d." %(self.health))
-        print("Position (row, column): (%d, %d)." %(self.pos.getRow(), self.pos.getColumn()))
+    def display_information(self):
+        print("Health: %d." %(self._health))
+        print("Position (row, column): (%d, %d)." %(self._pos.get_row(), self._pos.get_column()))
         print('Keys: [', end = '')
-        print(*self.keys, sep = ', ', end = '].\n')
-        print("Elixirs: %d." %(self.numElixirs))
-        print("Defence: %d." %(self.shield))
-        print("Coins: %d." %(self.coin))
+        print(*self._keys, sep = ', ', end = '].\n')
+        print("Elixirs: %d." %(self._num_elixirs))
+        print("Defence: %d." %(self._shield))
+        print("Coins: %d." %(self._coin))

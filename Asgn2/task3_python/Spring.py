@@ -18,26 +18,26 @@
 from Pos import Pos
 
 class Spring():
-    def __init__(self, chance = 1, healing = 100):
-        self.numChance = chance
-        self.healingPower = healing
-        self.pos = Pos()
+    def __init__(self):
+        self._num_chance = 1
+        self._healing_power = 100
+        self._pos = Pos()
 
 
-    def setPos(self, row, column):
-        self.pos.setPos(row, column)
+    def set_pos(self, row, column):
+        self._pos.set_pos(row, column)
 
-    def getPos(self):
-        return self.pos
+    def get_pos(self):
+        return self._pos
 
-    def actionOnSoldier(self, soldier):
+    def action_on_soldier(self, soldier):
         self.talk()
-        if self.numChance == 1:
-            soldier.recover(self.healingPower)
-            self.numChance -= 1
+        if self._num_chance == 1:
+            soldier.recover(self._healing_power)
+            self._num_chance -= 1
 
     def talk(self):
-        print('Spring@: You have ' + str(self.numChance) + ' chance to recover 100 health.\n')
+        print('Spring@: You have ' + str(self._num_chance) + ' chance to recover 100 health.\n')
 
-    def displaySymbol(self):
+    def display_symbol(self):
         print('@', end = '')

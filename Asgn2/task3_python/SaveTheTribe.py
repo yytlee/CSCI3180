@@ -24,117 +24,117 @@ import random
 
 class SaveTheTribine():
     def __init__(self):
-        self.map = Map()
-        self.soldier = Soldier()
-        self.spring = Spring()
-        self.monsters = [Monster() for i in range(7)]
-        self.gameEnabled = True
+        self._map = Map()
+        self._soldier = Soldier()
+        self._spring = Spring()
+        self._monsters = [Monster() for i in range(7)]
+        self._game_enabled = True
 
     def initialize(self):
         # We use the integer 1-7 to represent the keys for corresponding caves, and the integer -1 to represent the artifact. 
 
-        self.monsters[0] = Monster(1, random.randint(3, 7) * 10)
-        self.monsters[0].setPos(4, 1)
-        self.monsters[0].addDropItem(2)
-        self.monsters[0].addDropItem(3)
+        self._monsters[0] = Monster(1, random.randint(3, 7) * 10)
+        self._monsters[0].set_pos(4, 1)
+        self._monsters[0].add_drop_item(2)
+        self._monsters[0].add_drop_item(3)
     
-        self.monsters[1] = Monster(2, random.randint(3, 7) * 10)
-        self.monsters[1].setPos(3, 3)
-        self.monsters[1].addDropItem(3)
-        self.monsters[1].addDropItem(6)
-        self.monsters[1].addHint(1)
-        self.monsters[1].addHint(5)
+        self._monsters[1] = Monster(2, random.randint(3, 7) * 10)
+        self._monsters[1].set_pos(3, 3)
+        self._monsters[1].add_drop_item(3)
+        self._monsters[1].add_drop_item(6)
+        self._monsters[1].add_hint(1)
+        self._monsters[1].add_hint(5)
 
-        self.monsters[2] = Monster(3, random.randint(3, 7) * 10)
-        self.monsters[2].setPos(5, 3)
-        self.monsters[2].addDropItem(4)
-        self.monsters[2].addHint(1)
-        self.monsters[2].addHint(2)
+        self._monsters[2] = Monster(3, random.randint(3, 7) * 10)
+        self._monsters[2].set_pos(5, 3)
+        self._monsters[2].add_drop_item(4)
+        self._monsters[2].add_hint(1)
+        self._monsters[2].add_hint(2)
 
-        self.monsters[3] = Monster(4, random.randint(3, 7) * 10)
-        self.monsters[3].setPos(5, 5)
-        self.monsters[3].addHint(3)
-        self.monsters[3].addHint(6)
+        self._monsters[3] = Monster(4, random.randint(3, 7) * 10)
+        self._monsters[3].set_pos(5, 5)
+        self._monsters[3].add_hint(3)
+        self._monsters[3].add_hint(6)
 
-        self.monsters[4] = Monster(5, random.randint(3, 7) * 10)
-        self.monsters[4].setPos(1, 4)
-        self.monsters[4].addDropItem(2)
-        self.monsters[4].addDropItem(6)
+        self._monsters[4] = Monster(5, random.randint(3, 7) * 10)
+        self._monsters[4].set_pos(1, 4)
+        self._monsters[4].add_drop_item(2)
+        self._monsters[4].add_drop_item(6)
 
-        self.monsters[5] = Monster(6, random.randint(3, 7) * 10)
-        self.monsters[5].setPos(3, 5)
-        self.monsters[5].addDropItem(4)
-        self.monsters[5].addDropItem(7)
-        self.monsters[5].addHint(2)
-        self.monsters[5].addHint(5)
+        self._monsters[5] = Monster(6, random.randint(3, 7) * 10)
+        self._monsters[5].set_pos(3, 5)
+        self._monsters[5].add_drop_item(4)
+        self._monsters[5].add_drop_item(7)
+        self._monsters[5].add_hint(2)
+        self._monsters[5].add_hint(5)
 
-        self.monsters[6] = Monster(7, random.randint(3, 7) * 10)
-        self.monsters[6].setPos(4, 7)
-        self.monsters[6].addDropItem(-1)
-        self.monsters[6].addHint(6)
+        self._monsters[6] = Monster(7, random.randint(3, 7) * 10)
+        self._monsters[6].set_pos(4, 7)
+        self._monsters[6].add_drop_item(-1)
+        self._monsters[6].add_hint(6)
 
         for i in range(7):
-            self.map.addObject(self.monsters[i])
+            self._map.add_object(self._monsters[i])
 
-        self.soldier.setPos(1, 1)
-        self.soldier.addKey(1)
-        self.soldier.addKey(5)
+        self._soldier.set_pos(1, 1)
+        self._soldier.add_key(1)
+        self._soldier.add_key(5)
 
-        self.map.addObject(self.soldier)
+        self._map.add_object(self._soldier)
 
-        self.spring.setPos(7, 4)
+        self._spring.set_pos(7, 4)
 
-        self.map.addObject(self.spring)
+        self._map.add_object(self._spring)
 
     def start(self):
         print('=> Welcome to the desert!')
         print('=> Now you have to defeat the monsters and find the artifact to save the tribe.')
 
-        while self.gameEnabled:
-            self.map.displayMap()
-            self.soldier.displayInformation()
+        while self._game_enabled:
+            self._map.display_map()
+            self._soldier.display_information()
             
             move = input('\n=> What is the next step? (W = Up, S = Down, A = Left, D = Light.) Input: ').upper()
 
-            pos = self.soldier.getPos()
+            pos = self._soldier.get_pos()
 
-            newRow = oldRow = pos.getRow()
-            newColumn = oldColumn = pos.getColumn()
+            new_row = old_row = pos.get_row()
+            new_column = old_column = pos.get_column()
 
             if move == 'W':
-                newRow = oldRow - 1
+                new_row = old_row - 1
             elif move == 'S':
-                newRow = oldRow + 1
+                new_row = old_row + 1
             elif move == 'A':
-                newColumn = oldColumn - 1
+                new_column = old_column - 1
             elif move == 'D':
-                newColumn = oldColumn + 1
+                new_column = old_column + 1
             else:
                 print('=> Illegal move!')
                 continue
 
-            if self.map.checkMove(newRow, newColumn):
-                occupiedObject = self.map.getOccupiedObject(newRow, newColumn)
+            if self._map.check_move(new_row, new_column):
+                occupied_object = self._map.get_occupied_object(new_row, new_column)
 
-                if occupiedObject != None:
-                    occupiedObject.actionOnSoldier(self.soldier)
+                if occupied_object != None:
+                    occupied_object.action_on_soldier(self._soldier)
                 else:
-                    self.soldier.move(newRow, newColumn)
-                    self.map.update(self.soldier, oldRow, oldColumn, newRow, newColumn)
+                    self._soldier.move(new_row, new_column)
+                    self._map.update(self._soldier, old_row, old_column, new_row, new_column)
                     print()
             else:
                 print('=> Illegal move!')
 
-            if self.soldier.getHealth() <= 0:
+            if self._soldier.get_health() <= 0:
                 print('=> You died.')
                 print('=> Game over.\n')
-                self.gameEnabled = False
+                self._game_enabled = False
 
             # Check if the soldier has received the artifact. 
-            if -1 in self.soldier.getKeys():
+            if -1 in self._soldier.get_keys():
                 print('=> You found the artifact.')
                 print('=> Game over.\n')
-                self.gameEnabled = False
+                self._game_enabled = False
 
 
 if __name__ == '__main__':

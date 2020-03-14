@@ -83,7 +83,7 @@ class SixMensMorris():
                 x = player.next_move()
             self.board.print_board()
 
-            if  self.num_play >= 12 and self.check_win(player): ### TODO:
+            if  self.num_play >= 12 and self.check_win(player): ### TODO: allow game end immediatily after put movment
                 end = True
             else:
                 if self.board.form_mill(x, player):

@@ -17,10 +17,10 @@
 #  */
 class Cell():
     def __init__(self):
-        self.occupiedObject = None
+        self._occupied_object = None
 
-    def getOccupiedObject(self):
-        return self.occupiedObject
+    def get_occupied_object(self):
+        return self._occupied_object
 
-    def setOccupiedObject(self, occupiedObject):
-        self.occupiedObject = occupiedObject
+    def set_occupied_object(self, occupied_object):
+        self._occupied_object = occupied_object

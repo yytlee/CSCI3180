@@ -18,33 +18,35 @@
 from Pos import Pos
 
 class Merchant():
-    def __init__(self, elixirPrice, shieldPrice):
+    def __init__(self, elixir_price, shield_price):
 
         # TODO: Initialization.
-        self.elixirPrice = elixirPrice
-        self.shieldPrice = shieldPrice
-        self.pos = Pos()
+        self._elixir_price = elixir_price
+        self._shield_price = shield_price
+        self._pos = Pos()
 
-    def actionOnSoldier(self, soldier):
+    def action_on_soldier(self, soldier):
         self.talk('Do you want to buy something? (1. Elixir, 2. Shield) Input: ')
 
         # TODO: Main logic.
         choice = input()
 
         if choice == '1':
-            if soldier.getNumCoin() >= self.elixirPrice:
-                soldier.useCoin(self.elixirPrice)
-                soldier.addElixir()
-                print("You have %d coin(s) left.", soldier.getNumCoin())
+            if soldier.get_num_coin() >= self._elixir_price:
+                soldier.use_coin(self._elixir_price)
+                soldier.add_elixir()
+                print("You have %d coin(s) left.", soldier.get_num_coin())
             else:
                 self.talk("Poor guy, you don't have enough coins.")
+                print()
         elif choice == '2':
-            if soldier.getNumCoin() >= self.shieldPrice:
-                soldier.useCoin(self.shieldPrice)
-                soldier.addShield()
-                print("You have %d coin(s) left.", soldier.getNumCoin())
+            if soldier.get_num_coin() >= self._shield_price:
+                soldier.use_coin(self._shield_price)
+                soldier.add_shield()
+                print("You have %d coin(s) left.", soldier.get_num_coin())
             else:
                 self.talk("Poor guy, you don't have enough coins.")
+                print()
         else:
             print('=> Illegal move!\n')
 
@@ -53,11 +55,11 @@ class Merchant():
 
     # TODO: Other functions.
 
-    def getPos(self):
-        return self.pos
+    def get_pos(self):
+        return self._pos
 
-    def setPos(self, row, column):
-        self.pos.setPos(row, column)
+    def set_pos(self, row, column):
+        self._pos.set_pos(row, column)
 
-    def displaySymbol(self):
+    def display_symbol(self):
         print('$', end = '')
