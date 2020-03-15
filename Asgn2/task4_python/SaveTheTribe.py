@@ -17,19 +17,17 @@
 #  */
 from Pos import Pos
 from Map import Map
-from Task4Soldier import Task4Soldier
-from Task4Monster import Monster
+from Soldier import Soldier
+from Monster import Monster
 from Spring import Spring
-from Task4Merchant import Merchant
 import random
 
 class SaveTheTribine():
     def __init__(self):
         self._map = Map()
-        self._soldier = Task4Soldier()
+        self._soldier = Soldier()
         self._spring = Spring()
-        self._monsters = [Monster(0, 0) for i in range(7)]
-        self._merchant = Merchant(1, 2)
+        self._monsters = [Monster() for i in range(7)]
         self._game_enabled = True
 
     def initialize(self):
@@ -87,11 +85,6 @@ class SaveTheTribine():
         self._spring.set_pos(7, 4)
 
         self._map.add_object(self._spring)
-
-        self._merchant.set_pos(7, 7)
-
-        self._map.add_object(self._merchant)
-
 
     def start(self):
         print('=> Welcome to the desert!')
