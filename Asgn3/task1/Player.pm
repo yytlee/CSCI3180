@@ -14,19 +14,20 @@ sub new {
 }
 
 sub getCards {
-    my($self, $card) = @_;
-    push(@{$self->{_name}}, $card);
+    my ($self, $card) = @_;
+    push(@{$self->{_cards}}, $card);
 }
 
 sub dealCards {
-    my $self = @_;
-    my $card = shift(@{$self->{_cards}});
+    my ($self) = @_;
+    my $cards = $self->{_cards};
+    my $card = shift(@$cards);
     return $card;
 }
 
 sub numCards {
-    my $self = @_;
-    my $size = $self->{_cards};
+    my ($self) = @_;
+    my $size = scalar @{$self->{_cards}};
     return $size;
 }
 
