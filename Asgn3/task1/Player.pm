@@ -14,8 +14,7 @@ sub new {
 }
 
 sub getCards {
-    my $self = @_;
-    my $card = @_;
+    my($self, $card) = @_;
     push(@{$self->{_name}}, $card);
 }
 
