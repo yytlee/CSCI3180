@@ -17,6 +17,10 @@ sub print {
 sub stepOn {
 
     # ...
+    my $self = shift;
+    local $Player::income = 2000;
+    local $Player::tax_rate = 0;
+    local $Player::due = 0;
 
     $main::cur_player->payDue();
     print("You received \$2000 from the Bank!\n");

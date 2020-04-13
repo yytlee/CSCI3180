@@ -67,6 +67,12 @@ sub printGameBoard {
 sub terminationCheck {
 
     # ...
+    foreach my $player(@players){
+        if($player->{money} == 0){
+            return 0;
+        }
+    }
+    return 1;
 
 }
 
@@ -80,14 +86,63 @@ sub throwDice {
 
 sub main {
     while (terminationCheck()){
-        printGameBoard();
-        foreach my $player (@players) {
-            $player->printAsset();
+        if($cur_player->{num_rounds_in_jail} == 0){
+            printGameBoard();
+            foreach my $player (@players) {
+                $player->printAsset();
+            }
         }
 
         # ...
+        
+        $Player::due = 200;
+        $Player::tax_rate = 0;
+        $cur_player->payDue();
+        if($cur_player->{num_rounds_in_jail} > 0){
+            # print("num_rounds_in_jail: $cur_player->{num_rounds_in_jail}\n");
+            $cur_player->move(0);
+            $cur_round = $cur_round + 1;
+            $cur_player_idx = $cur_round % 2;
+            $cur_player = $players[$cur_player_idx];
+            next;
+        }
+        print("Player $cur_player->{name}'s turn.\n");
+        print "Pay \$500 to throw two dice? [y/n]\n";
+        my $response = " ";
+        while($response = <STDIN>){
+            chomp($response);
+            if($response eq "n"){
+                $num_dices = 1;
+                last;
+            }
+            elsif($response eq "y" && $cur_player->{money} < 525){
+                print "You do not have enough money to throw two dice!\n";
+                $num_dices = 1;
+                last;
+            }
+            elsif($response eq "y"){
+                $num_dices = 2;
+                local $Player::due = 500;
+                local $Player::handling_fee_rate = 0.05;
+                $cur_player->payDue();
+                last;
+            }
+            print "Pay \$500 to throw two dice? [y/n]\n";
+        }
+        my $step = throwDice();
+        print("Points of dice: $step\n");
+        $cur_player->move($step);
+        printGameBoard();
+        $game_board[$cur_player->{position}]->stepOn();
+        if($cur_player->{money} < 0){
+            $cur_player->{money} = 0;
+        }
 
+        $cur_round = $cur_round + 1;
+        $cur_player_idx = $cur_round % 2;
+        $cur_player = $players[$cur_player_idx];
     }
+    print("Game over! winner: $cur_player->{name}.\n");
 }
 
 main();
