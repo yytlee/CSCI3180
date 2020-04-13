@@ -36,7 +36,7 @@ sub new {
 }
 
 sub set_players {
-    my ($self, $arr) = @_;
+    my($self, $arr) = @_;
     my @name = @$arr;
     foreach(@name){
         my $player = new Player($_, ());
@@ -58,7 +58,8 @@ sub set_players {
 
 sub getReturn {
     # only count the cards in array, new card is not counted
-    my ($self, $card) = @_;
+    my($self) = @_;
+    my $card = pop @{$self->{_cardList}};
     my $count = 0;
     my $size = scalar @{$self->{_cardList}};
     if($card eq "J"){
@@ -75,7 +76,7 @@ sub getReturn {
 }
 
 sub showCards {
-    my ($self) = @_;
+    my($self) = @_;
 	print join(" ", @{$self->{_cardList}});
     print "\n";
 }
@@ -92,11 +93,10 @@ sub checkLoser {
 }
 
 sub start_game {
-    my ($self) = @_;
+    my($self) = @_;
     $self->{_deck}->shuffle();
     my @aPlayer = @{$self->{_players}};
     my $numPlayer = @{$self->{_players}};
-    # my $numCard = 52 / $numPlayer;
     my @shuffleCards = ($self->{_deck}->AveDealCards($numPlayer));
 
     for my $i (0..$#shuffleCards){
@@ -122,13 +122,12 @@ sub start_game {
             print "================================\n";
             my $currentCard = $_->dealCards();
             print "$name ==> card $currentCard\n";
+            push(@{$self->{_cardList}}, $currentCard);
             my $returnCard = $self->getReturn($currentCard);
-            # print "return $returnCard\n";
             if($returnCard == 0){
                 push(@{$self->{_cardList}}, $currentCard);
             }
             else{
-                # print $returnCard;
                 $_->getCards($currentCard);
                 for my $i (0..$returnCard - 1){
                     my $shiftCard = pop @{$self->{_cardList}};
@@ -151,9 +150,6 @@ sub start_game {
             print "\n";
         }
         $round = $round + 1;
-        if($loser == $numPlayer - 1){
-            last;
-        }
         $loser = 0;
     }
     foreach(@{$self->{_players}}){
