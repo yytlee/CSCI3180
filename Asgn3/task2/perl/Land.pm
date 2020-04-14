@@ -33,7 +33,6 @@ sub buyLand {
     $self->{owner} = $main::cur_player;
     local $Player::due = 1000;
     local $Player::handling_fee_rate = 0.1;
-    local $Player::income = 0;
 
     $main::cur_player->payDue();
 }
@@ -51,7 +50,6 @@ sub upgradeLand {
     }
     local $Player::due = $fee;
     local $Player::handling_fee_rate = 0.1;
-    local $Player::income = 0;
     if($main::cur_player->{money} < ($fee * (1 + $Player::handling_fee_rate))){
         print "You do not have enough money to upgrade the land!\n";
         return;
