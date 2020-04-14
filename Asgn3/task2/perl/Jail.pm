@@ -19,7 +19,7 @@ sub stepOn {
     # ...
     my $self = shift;
     my $jail = 2;
-    $main::cur_player->{num_rounds_in_jail} = 2;
+    # $main::cur_player->{num_rounds_in_jail} = 2;
     print "Pay \$1000 to reduce the prison round to 1? [y/n]\n";
     my $response;
     while($response = <STDIN>){
