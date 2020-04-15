@@ -125,7 +125,7 @@ class Land:
 
         # ...
         if cur_player.money < 1100:
-            print("You do not have enough money to buy the land")
+            print("You do not have enough money to buy the land!")
             return
 
         self.owner = cur_player
@@ -279,7 +279,7 @@ def main():
 
     # ...
         Player.due = 200
-        Player.tax_rate = 0.0
+        Player.handling_fee_rate = 0.0
         Player.income = 0.0
         cur_player.payDue()
 
@@ -288,7 +288,7 @@ def main():
             cur_round += 1
             cur_player_idx = cur_round % 2
             cur_player = players[cur_player_idx]
-            next
+            continue
 
         print("Player " + cur_player.name + "'s turn.")
         while True:
